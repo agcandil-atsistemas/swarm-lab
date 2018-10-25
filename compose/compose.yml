@@ -1,0 +1,39 @@
+version: "3"
+services:
+ influxdb:
+  image: influxdb:1.6
+  restart: always
+  environment:
+    - PRE_CREATE_DB=cadvisor
+  ports:
+    - "8086:8086"
+    - "8083:8083"
+  deploy:
+      placement:
+        constraints:
+          - node.labels.influxdb == true
+
+ cadvisor:
+  image: google/cadvisor:v0.31.0
+  command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086
+  ports:
+    - "8080:8080"
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
+
+ grafana:
+  image: grafana/grafana:5.3.2
+  ports:
+    - "3000:3000"
+  environment:
+    - HTTP_USER=admin
+    - HTTP_PASS=admin
+    - INFLUXDB_HOST=influxdb
+    - INFLUXDB_PORT=8086
+    - INFLUXDB_NAME=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_PASS=root
