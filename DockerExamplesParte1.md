@@ -1,6 +1,8 @@
-# Docker Examples
+# Ejemplos Docker
 
 ## Parte 1: Comandos Iniciales
+
+---
 
 #### Help
 ``` [bash]
@@ -82,11 +84,15 @@
     Run 'docker COMMAND --help' for more information on a command.
 ```
 
+---
+
 #### Version
 ``` [bash]
 $ docker -v
 Docker version 17.05.0-ce, build 89658be
 ```
+
+---
 
 #### info
 
@@ -97,7 +103,44 @@ Containers: 0
  Paused: 0
  Stopped: 0
 Images: 0
-Server Version: 17.05.0-ce
-Storage Driver:
-...
+Server Version: 18.09.0
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: c4446665cb9c30056f4998ed953e6d4ff22c7c39
+runc version: 4fc53a81fb7c994640722ac585fa9ca548971871
+init version: fec3683
+Security Options:
+ seccomp
+  Profile: default
+Kernel Version: 3.10.0-862.14.4.el7.x86_64
+Operating System: CentOS Linux 7 (Core)
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 1.796GiB
+Name: master1
+ID: QG65:O3EF:QMA4:4UCA:75YJ:RTCS:2PFN:FDXN:VGVF:M7BD:TZLG:7ZEC
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+Product License: Community Engine
+
 ```
