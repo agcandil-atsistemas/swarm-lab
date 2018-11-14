@@ -328,3 +328,314 @@ $ curl localhost:9080/helloworld.html
   </HTML>
 
 ```
+
+#### Información y logs de contenedores
+Para identificar cualquier problema que pueda darse en un contenedor, es importante saber como obtenemos toda la información del mismo, como puede ser el como se ha instanciado o los logs del servicio que esté corriendo.
+
+``` [bash]
+$ docker inspect some-nginx
+[
+    {
+        "Id": "b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d",
+        "Created": "2018-11-13T17:20:24.619601498Z",
+        "Path": "nginx",
+        "Args": [
+            "-g",
+            "daemon off;"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 23737,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2018-11-13T17:20:25.050342944Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:62f816a209e6b57dd5fe98c1994fe3ab19ba4e1fee2a5ec6d77f303be4ed90e9",
+        "ResolvConfPath": "/var/lib/docker/containers/b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d/hostname",
+        "HostsPath": "/var/lib/docker/containers/b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d/hosts",
+        "LogPath": "/var/lib/docker/containers/b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d/b1cf2a0a002afbd64cead2da62973e706e556c6688bb7c5429a7597104b9a17d-json.log",
+        "Name": "/some-nginx",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/home/vagrant/nginx:/usr/share/nginx/html:ro"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {
+                "80/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9080"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/asound",
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/2a25e35855d1a239f0804c5948af2c025e52c48772baaadfb4f018a76188047b-init/diff:/var/lib/docker/overlay2/14697c77066ebd5bdedc6da022d04ba6c009e29c8a7949b2cb2d3083ff7de870/diff:/var/lib/docker/overlay2/e11f08e576620d59641c307473eeccce35910ea5beef6982405ad80d88844bd7/diff:/var/lib/docker/overlay2/6847f3019cb4199591af75e7fe7e15ddc704e576004de1185e5b5e7c43c19e94/diff",
+                "MergedDir": "/var/lib/docker/overlay2/2a25e35855d1a239f0804c5948af2c025e52c48772baaadfb4f018a76188047b/merged",
+                "UpperDir": "/var/lib/docker/overlay2/2a25e35855d1a239f0804c5948af2c025e52c48772baaadfb4f018a76188047b/diff",
+                "WorkDir": "/var/lib/docker/overlay2/2a25e35855d1a239f0804c5948af2c025e52c48772baaadfb4f018a76188047b/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/vagrant/nginx",
+                "Destination": "/usr/share/nginx/html",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "b1cf2a0a002a",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.15.6-1~stretch",
+                "NJS_VERSION=1.15.6.0.2.5-1~stretch"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "ArgsEscaped": true,
+            "Image": "nginx",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGTERM"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "68a236666b9a853b9d4ff4ec829a4c0cee8029c216f85bebb94df620a7c292f7",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "80/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9080"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/68a236666b9a",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "60f360a1ad585882df676044e2317f5bd151ed4ffd355e87994949999d6f2fe8",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.3",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:03",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "eb94e99946c93a327f5966cf0774b55ae67612f1bde684d45fd294cf7bbd0a28",
+                    "EndpointID": "60f360a1ad585882df676044e2317f5bd151ed4ffd355e87994949999d6f2fe8",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.3",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:03",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+$ docker logs some-nginx
+172.17.0.1 - - [13/Nov/2018:17:20:29 +0000] "GET /helloworld.html HTTP/1.1" 200 229 "-" "curl/7.29.0" "-"
+
+```
+
+#### Acceder a un contenedor en ejecución
+Otro de los puntos destacados en la gestión de contenedores es la posibilidad de conectarnos al propio contenedor y ver que esta ocurriendo internamente:
+
+
+``` [bash]
+$ docker exec -h  
+Flag shorthand -h has been deprecated, please use --help
+
+Usage:	docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+  -w, --workdir string       Working directory inside the container
+$ docker exec -ti some-nginx bash
+root@b1cf2a0a002a:/#
+
+```
+
+Podemos ver la pila de procesos que está ejecutando (instalando previamente procps)
+``` [bash]
+root@b1cf2a0a002a:/# apt-get update && apt-get install procps
+root@b1cf2a0a002a:/# ps -a
+  PID TTY          TIME CMD
+  270 pts/0    00:00:00 ps
+root@b1cf2a0a002a:/# ps -aux
+  USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+  root         1  0.0  0.1  32616  3228 ?        Ss   17:20   0:00 nginx: master process nginx -g daemon of
+  nginx        6  0.0  0.0  33068  1836 ?        S    17:20   0:00 nginx: worker process
+  root         7  0.0  0.1  18208  2144 pts/0    Ss   17:43   0:00 bash
+  root       271  0.0  0.0  36628  1596 pts/0    R+   18:19   0:00 ps -aux
+
+```
+
+Y ver como se gestiona el punto de montaje que le hemos asignado al arrancar.
+``` [bash]
+root@b1cf2a0a002a:/# df
+  Filesystem     1K-blocks    Used Available Use% Mounted on
+  overlay         41152736 3381852  35657400   9% /
+  tmpfs              65536       0     65536   0% /dev
+  tmpfs             941400       0    941400   0% /sys/fs/cgroup
+  /dev/sda1       41152736 3381852  35657400   9% /etc/hosts
+  shm                65536       0     65536   0% /dev/shm
+  tmpfs             941400       0    941400   0% /proc/acpi
+  tmpfs             941400       0    941400   0% /proc/scsi
+  tmpfs             941400       0    941400   0% /sys/firmware
+
+root@b1cf2a0a002a:/# ls -alsh /usr/share/nginx/     
+  total 16K
+  4.0K drwxr-xr-x. 3 root root 4.0K Nov  7 00:21 .
+  8.0K drwxr-xr-x. 1 root root 4.0K Nov  7 00:21 ..
+  4.0K drwxrwxr-x. 2 1000 1000 4.0K Nov 13 17:20 html
+
+root@b1cf2a0a002a:/# ls -alsh /usr/share/nginx/html/
+  total 12K
+  4.0K drwxrwxr-x. 2 1000 1000 4.0K Nov 13 17:20 .
+  4.0K drwxr-xr-x. 3 root root 4.0K Nov  7 00:21 ..
+  4.0K -rw-rw-r--. 1 1000 1000  229 Nov 13 17:09 helloworld.html
+
+```

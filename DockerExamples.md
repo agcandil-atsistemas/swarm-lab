@@ -18,3 +18,7 @@ Es necesario disponer instalado docker, o tener una máquina virtual de Linux co
 ## Parte 3: Gestión de imagenes y contenedores
 
 [DockerExamples Parte3](DockerExamplesParte3.md "DockerExamplesParte3.md")
+
+## Parte 4: Construcción de una imagen
+
+[DockerExamples Parte4](DockerExamplesParte4.md "DockerExamplesParte4.md")
