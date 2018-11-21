@@ -1,0 +1,82 @@
+version: "3"
+services:
+ influxdb:
+  image: influxdb:1.6
+  restart: always
+  environment:
+    - INFLUXDB_DB = cadvisor
+    - INFLUXDB_USER = root
+    - INFLUXDB_USER_PASSWORD = root
+  ports:
+    - "8086:8086"
+    - "8083:8083"
+  deploy:
+      placement:
+        constraints:
+          - node.labels.influxdb == true
+  volumes:
+   - influxdb:/var/lib/influxdb
+  networks:
+    - monitoring
+  deploy:
+    placement:
+      constraints: [node.hostname == master3]
+  volumes:
+   - influxdb:/var/lib/influxdb
+  networks:
+    - monitoring
+  deploy:
+    placement:
+      constraints: [node.name == master3]
+
+ cadvisor:
+  image: google/cadvisor:v0.31.0
+  command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=monitoring_influxdb:8086
+  ports:
+    - "8080:8080"
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
+  networks:
+    - monitoring
+  deploy:
+    placement:
+      constraints: [node.role == manager]
+
+ grafana:
+  image: grafana/grafana:5.3.2
+  ports:
+    - "3000:3000"
+  environment:
+    - HTTP_USER=admin
+    - HTTP_PASS=admin
+    - INFLUXDB_HOST=monitoring_influxdb
+    - INFLUXDB_PORT=8086
+    - INFLUXDB_NAME=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_PASS=root
+  networks:
+    - monitoring
+  volumes:
+    - grafana:/var/lib/grafana
+  deploy:
+    placement:
+      constraints: [node.name == node1]
+
+networks:
+  monitoring:
+
+volumes:
+  influxdb:
+    driver_opts:
+      type: none
+      device:  "/home/vagrant/influxdb"
+      o: bind
+  grafana:
+    driver_opts:
+      type: none
+      device:  "/home/vagrant/grafana"
+      o: bind

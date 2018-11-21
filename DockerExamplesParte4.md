@@ -199,3 +199,8 @@ $ curl localhost:9081/helloworld.html
   </HTML>
 
 ```
+
+#### Documentación oficial
+La documentación oficial se encuentra en la url:
+
+https://docs.docker.com/engine/reference/builder/
