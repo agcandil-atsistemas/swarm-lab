@@ -4,9 +4,9 @@ services:
   image: influxdb:1.6
   restart: always
   environment:
-    - INFLUXDB_DB = cadvisor
-    - INFLUXDB_USER = root
-    - INFLUXDB_USER_PASSWORD = root
+    - INFLUXDB_DB=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_USER_PASSWORD=root
   ports:
     - "8086:8086"
     - "8083:8083"
@@ -20,14 +20,7 @@ services:
     - monitoring
   deploy:
     placement:
-      constraints: [node.hostname == master3]
-  volumes:
-   - influxdb:/var/lib/influxdb
-  networks:
-    - monitoring
-  deploy:
-    placement:
-      constraints: [node.name == master3]
+      constraints: [node.hostname == node1]
 
  cadvisor:
   image: google/cadvisor:v0.31.0
@@ -43,8 +36,7 @@ services:
   networks:
     - monitoring
   deploy:
-    placement:
-      constraints: [node.role == manager]
+    mode: global
 
  grafana:
   image: grafana/grafana:5.3.2
@@ -64,10 +56,23 @@ services:
     - grafana:/var/lib/grafana
   deploy:
     placement:
-      constraints: [node.name == node1]
+      constraints: [node.hostname == node1]
+
+ visualizer:
+   image: dockersamples/visualizer:stable
+   ports:
+     - "8888:8080"
+   volumes:
+     - "/var/run/docker.sock:/var/run/docker.sock"
+   deploy:
+     placement:
+       constraints: [node.role == manager]
+   networks:
+     - monitoring
 
 networks:
   monitoring:
+    driver: overlay
 
 volumes:
   influxdb:
